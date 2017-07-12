@@ -10,7 +10,7 @@ You can have as many nodes you want, including just one. The ES architecture is 
 
 Each data item stored in the cluster is called a *document*: these are JSON objects, which include properties/attributes. Documents are stored into *indeces*. Documents have ids assigned to them (either automatically or manually); indeces are representated by names (unique names that you assing). 
 
-Note that ES used *types* in the past - this is being phased out. It used to be that every document has a `_type` field which could be used for filtering when searching on a specific type. [[https://www.elastic.co/blog/index-vs-type|This resource from the ES team]] explains more on types.
+Note that ES used *types* in the past - this is being phased out. It used to be that every document has a `_type` field which could be used for filtering when searching on a specific type. [[This resource from the ES team|https://www.elastic.co/blog/index-vs-type]] explains more on types.
 
 *Sharding* is what makes ES largely scalable: it allows to split the indexes data across nodes (so to address the hardware limits of each node). Each node may contain multiple shards. Sharding allows to deal with volumes of data that are beyond the limits of one single nodes; but it also allows for parallalisation of operations (also within the same node): multiple machines (or cores in one machine) can work on the same query at the same time. The number of shards can be specified at index creation (default is 5). Once an index is created, the number of shards cannot be changed - to increase the shards a new index needs to be created, and data moved across.
 
