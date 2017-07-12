@@ -14,7 +14,17 @@ Note that ES used *types* in the past - this is being phased out. It used to be 
 
 *Sharding* is what makes ES largely scalable: it allows to split the indexes data across nodes (so to address the hardware limits of each node). Each node may contain multiple shards. Sharding allows to deal with volumes of data that are beyond the limits of one single nodes; but it also allows for parallalisation of operations (also within the same node): multiple machines (or cores in one machine) can work on the same query at the same time. The number of shards can be specified at index creation (default is 5). Once an index is created, the number of shards cannot be changed - to increase the shards a new index needs to be created, and data moved across.
 
-ES natively supports *replication* of shards: that is, shards are copied across nodes. The shards that are replicated are claled primary shards, it's replica are called replica shards (note you need multiple nodes for replication). Replication delivers high reliability and increased performance for search queries, because searches can be performed on the replicas in parallel. The number of replicas is defined at indexing. The default is 1: thus by default each node has 5 shards, and 5 replicas - this if a cluster has more than one node.
+ES natively supports *replication* of shards: that is, shards are copied across nodes. The shards that are replicated are claled primary shards, it's replica are called replica shards (note you need multiple nodes for replication). Replication delivers high reliability and increased performance for search queries, because searches can be performed on the replicas in parallel. The number of replicas is defined at indexing. The default is 1: thus by default each node has 5 shards, and 5 replicas (thus 10 shards in total) - this if a cluster has more than one node. 
+
+ES uses primary backup for replication: all operations that affect the index are sent to the primary shard, which is responsible for validating the request. When accepted, the operation is performed locally; when it is completed it is forwarded to the replicas, where it is performed in parallel.
+
+Routing is used to determine in which shard new documents should be stored. To decide on sharding, ES computes:
+
+shard = hash(doc_id) % total_primary_shards
+
+However, ES allows to specify a costum sharding function.
+
+
 
 ## Installing Elasticsearch 
 
