@@ -32,6 +32,7 @@ However, ES allows to specify a costum sharding function.
 
 This is as simple as downloading ES and running it from the bin. Note, Java is required.
 
+
 ### Using Docker to run ES
 
 Docker is a popular container technology (like a lightweight virtual machine). 
@@ -56,3 +57,11 @@ Configurations are in `config/elasticsearch.yml`. Note that each node could be c
 It allows to change the port in which the cluster listens. 
 
 
+## Interacting with Elasticsearch via HTTP requests
+
+You can use Kibana's Dev Tool Console or Postman, among others, to send commands & queries to the cluster as HTTP requests.
+Commands are in the form:
+
+``` <REST verb> /<indexname>/<API>```
+
+For example: `GET /myindex/_search`
