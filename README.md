@@ -64,4 +64,4 @@ Commands are in the form:
 
 ``` <REST verb> /<indexname>/<API>```
 
-For example: `GET /myindex/_search`
+For example: `GET /myindex/_search`. This would work in Kibana. If using `curl` (or other REST interfaces), then this owuld become: `curl -XGET "http://localhost:9200/my_index/_search"`.
