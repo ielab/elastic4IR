@@ -28,6 +28,10 @@ However, ES allows to specify a costum sharding function.
 
 ## Installing Elasticsearch 
 
+### Running ES in Mac/Unix
+
+This is as simple as downloading ES and running it from the bin. Note, Java is required.
+
 ### Using Docker to run ES
 
 Docker is a popular container technology (like a lightweight virtual machine). 
@@ -42,5 +46,13 @@ will return the status of the ES cluster.
 
 Note that this particular docker image creates a folder `data` in the local directory - this will persist some of the ES and Kibana data, so to allow to turn off and then on again the docker without loss of data.
 
+The processes running in Docker can be terminated with the usual `CTRL+C`. `docker-compose down` issued then on the terminal releases all the resources used by Docket. 
 
-## Running Elasticsearch
+ES configurations can be changed by editing the `docker-compose.yml` file.
+
+### Configuring Elasticsearch
+
+Configurations are in `config/elasticsearch.yml`. Note that each node could be configured differently.
+It allows to change the port in which the cluster listens. 
+
+
