@@ -65,3 +65,26 @@ Commands are in the form:
 ``` <REST verb> /<indexname>/<API>```
 
 For example: `GET /myindex/_search`. This would work in Kibana. If using `curl` (or other REST interfaces), then this owuld become: `curl -XGET "http://localhost:9200/my_index/_search"`.
+
+Note, if you are using the Docker installation, then instead of `localhost`, you should use `elasticsearch`, as that has bene setup as the hostname of the Docker virtual machine.
+Also, when not using Kibana and the request has a payload (or request body), then we need to specify a request body (json).
+In the following, we report commands as Kibana commands.
+
+### Creating an index and interacting with it.
+
+To create an empty index:
+
+```
+PUT /indexname
+{
+}
+```
+
+The `_cat` API allows to retrieve information about the cluster in human readable format.
+
+```
+GET /_cat/indeces?v
+```
+
+The `v` parameter specifies the output should be verbose. The result shows information of indeces in the cluster.
+The yellow health for an index means that some replicas have not been allocated.
