@@ -88,3 +88,27 @@ GET /_cat/indeces?v
 
 The `v` parameter specifies the output should be verbose. The result shows information of indeces in the cluster.
 The yellow health for an index means that some replicas have not been allocated.
+
+## The Elasticsearch query language
+
+## Using Elasticsearch programmatically for IR experiments
+
+This section shows code snippets detailing how to perform common operations used when implementing IR experiments or new retrieval models.
+
+### Creating a TREC run with Elasticsearch
+
+### Accessing a Term Vector
+
+### Implementing a Costumised Scoring Function
+
+### Using a Document Prior
+
+### Boolean Retrieval in Elasticsearch
+
+### Retrieving Field Text & Field Boosting
+
+### Getting Snippet Text for Query Results
+
+
+## Common Problems and Solutions with Elasticsearch
+
