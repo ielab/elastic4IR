@@ -64,7 +64,7 @@ Commands are in the form:
 
 ``` <REST verb> /<indexname>/<API>```
 
-For example: `GET /myindex/_search`. This would work in Kibana. If using `curl` (or other REST interfaces), then this owuld become: `curl -XGET "http://localhost:9200/my_index/_search"`.
+For example: `GET /myindex/_search`. This would work in Kibana. If using `curl` (or other REST interfaces), then this would become: `curl -XGET "http://localhost:9200/my_index/_search"`.
 
 Note, if you are using the Docker installation, then instead of `localhost`, you should use `elasticsearch`, as that has bene setup as the hostname of the Docker virtual machine.
 Also, when not using Kibana and the request has a payload (or request body), then we need to specify a request body (json).
