@@ -166,7 +166,7 @@ Next, we will apply boosting factor to specify each field importance.
 For practice purpose, let's say that the title field is more important than the summary field.
 Hence, query match to text in the title field should weighted double than query match to text in the summary field.
 
-To specify field weight / boosting level, we need to add a caret symbol following each field name in the query string
+To specify field weight / boosting level, we need to add a caret symbol and field weight following each field name in the query string
 ```python
 query_string = {
     'query': {
