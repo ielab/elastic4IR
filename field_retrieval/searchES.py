@@ -9,7 +9,7 @@ query_string = {
     'query': {
         'query_string': {
             'query': 'Searching',
-            'fields': ['title','summary']
+            'fields': ['title^2','summary^1']
         }
     }
 }
