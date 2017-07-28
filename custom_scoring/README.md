@@ -82,7 +82,7 @@ public class KLDivergenceSimilarity extends LMSimilarity {
 
     @Override
     protected float score(BasicStats stats, float freq, float docLen) {
-        
+
         float score = stats.getBoost() *
                 (float)(Math.log(((freq + mu * ((LMStats)stats).getCollectionProbability()) / (mu + docLen)) /
                 (ad * ((LMStats)stats).getCollectionProbability())) +
@@ -231,7 +231,7 @@ PUT books
 }
 ```
 
-Note on the above script, we create on similarity for each field.
+Note on the above script, we created one similarity for each field.
 This is a good practice as it allows us to apply varied simmilarity parameter value for all fields.
 
 To check if the KLDivergence is used in the "books" index settings, execute the following in Kibana:
