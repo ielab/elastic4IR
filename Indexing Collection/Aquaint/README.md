@@ -40,23 +40,23 @@ from lxml import etree
 ```
 
 specify location of the Aquaint files.
-```
+```python
 docPath = "/Volumes/Data/Phd/Data/aquaint_docs/"
 ```
 
 Open connection to Elasticsearch
-```
+```python
 es = Elasticsearch(urls='http://localhost', port=9200, timeout=600)
 ```
 
 Specify bulk size and max documents in a bulk. For faster indexing, we will index documents in bulks.
-```
+```python
 bulk_size = 4000
 bulk_count = 1000
 ```
 
 Define index name and document type for the aquaint index:
-```
+```python
 indexName = "aquaint_all"
 docType = "aquaint"
 ```
@@ -72,7 +72,7 @@ stem using porter stemer.
 * "_source" --> specify to store or not to store the document text in the index (False means not storing the document text)
 * "properties" --> field definition. utilize the defined custom similarity and analyzer.
 
-```
+```python
 request_body = {
     "settings": {
       "number_of_shards": 1,
@@ -127,7 +127,7 @@ request_body = {
 ```
 
 Create index based on the specified settings:
-```
+```python
 if not es.indices.exists(indexName):
     print ("creating ", indexName, " index, start at ", startTime)
     res = es.indices.create(index=indexName, body=request_body)
@@ -135,7 +135,7 @@ if not es.indices.exists(indexName):
 ```
 
 Traverse all folders, extract the gz files, then index in bulk
-```
+```python
 # traverse through all folders
 sourceFolders = glob.glob(docPath + "/*")
 for sourceFold in sourceFolders:
