@@ -1,21 +1,21 @@
 # Implement Custom Similarity Plug In to Elasticsearch
-This channel describe procedure to implement a custom similarity plug in to Elasticsearch 5.1.1.
-A language model KL-Divergence will be implemented as a case study.
+Here we describe how to implement a custom similarity function (plugin) for Elasticsearch (based on version 5.1.1).
+As a case study, we shall implement KL-Divergence similarity between language models.
 
-This channel is derived from https://github.com/jimmyoentung/ES-KLDivergenceSimilarity.
+This tutorial is derived from https://github.com/jimmyoentung/ES-KLDivergenceSimilarity.
 
 ## Implementation
 - download/clone this project to your local machine
 
-- define an `ES_PATH` environment variable using terminal/command. for example:
+- define an `ES_PATH` environment variable using your terminal/command prompt. For example:
 
 ```bash
 export ES_PATH=/usr/local/Cellar/elasticsearch/5.1.1
 ```
 
-- use IntelliJ Idea or other IDE to import the project as a Gradle project
+- use IntelliJ Idea or another IDE to import the project as a Gradle project
 
-- specify elastic version used by modifying the build.gradle:
+- specify the elastic version used by modifying the build.gradle:
 ```java
 group 'com.github.jimmyoentung'
 
@@ -33,7 +33,7 @@ def esPluginPath = Paths.get(esPath, "/modules/${rootProject.name}")
 rootProject.name = 'lm-kldivergence'
 ```
 
-- rename the project package into your github channel. This example use may channel: com.github.jimmyoentung.eskldivergencesimilarity
+- rename the project package into your GitHub repository. This example uses the `com.github.jimmyoentung.eskldivergencesimilarity` repository
 
 - modify the plugin-descriptor.properties:
 ```java
@@ -121,9 +121,8 @@ public class KLDivergenceSimilarity extends LMSimilarity {
 }
 ```
 
-Note that on the above script we have two data members: mu and ad which represent the KL Divergence parameters.
-These two parameters should be configurable and thus we should put it as parameter.
-Modify the KLDivergenceSimilarityProvider.java to register the two parameters and their default value
+Note that in the above script we have two parameters: `mu` and `ad` - these are the KL Divergence parameters.
+In our code, we may want to be able to set these two parameters. To this aim, modify the KLDivergenceSimilarityProvider.java to register the two parameters and their default value
 
 ```java
 package com.github.jimmyoentung.eskldivergencesimilarity;
@@ -173,24 +172,25 @@ public class KLDivergenceSimilarityPlugin extends Plugin {
 }
 ```
 
-At this stage, you should be all set to install the plugin to elasticsearch. A `gradle` task is provided
-to do this. It will build and copy the files to wherever `ES_PATH` is set. To run this `gradle` task, in
+At this stage, you should be set to install the plugin into Elasticsearch. A `gradle` task is provided
+to do this. It will build and copy the files according to the`ES_PATH`. To run this `gradle` task, in
 the same directory as this readme file, run:
 
 ```bash
 ./gradlew installPlugin
 ```
 
-For elasticsearch to register the plugin as installed, you need to **restart** elasticsearch.
-If new plugin is loaded succesfully, you will see the following message within the Elasticsearch log
+For Elasticsearch to register the plugin as installed, you need to **restart** Elasticsearch.
+If a new plugin is loaded succesfully, you will see the following message within the Elasticsearch log
 ```
 [2017-07-27T13:51:33,444][INFO ][o.e.p.PluginsService     ] [J-8Q2RU] loaded module [ES KL Divergence Similarity]
 ```
 
 
-## using the custom similarity module
-Now that we have load the KL Divergence similarity module, we can use it in our index.
-From kibana, create an index using the KL Divergence with default parameter values (mu=2000, ad=700)
+## Using the custom similarity module
+Now that we have loaded the KL Divergence similarity module, we can use it for retrieval from our index.
+To demonstrate this, we shall use Kibana. In Kibana, create an index using the KL Divergence with default parameter values (mu=2000, ad=700 in this case).
+
 ```kibana
 PUT books
 {
@@ -231,15 +231,15 @@ PUT books
 }
 ```
 
-Note on the above script, we created one similarity for each field.
-This is a good practice as it allows us to apply varied simmilarity parameter value for all fields.
+Note that in the above script we created one similarity for each field in the document.
+This is a good practice as it allows us to apply different parameter values to each of the fields.
 
-To check if the KLDivergence is used in the "books" index settings, execute the following in Kibana:
+To check if the KLDivergence is used in the "books" index settings used here for example, execute the following in Kibana:
 ```Kibana
 GET /books/_settings
 ```
 
-expected output:
+The expected output is:
 ```json
 {
   "books": {
@@ -271,12 +271,12 @@ expected output:
 }
 ```
 
-Next, we need to check if the similarity settings have been assigned properly. In Kibana:
+Next, we need to check if the similarity settings has been assigned properly. In Kibana:
 ```kibana
 GET /books/_mapping/chapter
 ```
 
-expected output:
+The expected output is:
 ```json
 {
   "books": {
