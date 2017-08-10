@@ -3,23 +3,23 @@
 Getting Snippet Text for Query Results
 --------------------------------------
 
-A snippet is the short summary extracted from the source file which usually emphasises the query terms found in that source document. For the search given below, the snippets are provided beneath each blue heading.  Note the boldface font given to the same or similar search terms
+A snippet is a short summary extracted from a source file which provides a query-biased summary of the file, often emphasising the query terms found in that source document. For the search example given below, the snippets are provided beneath each blue heading.  Note the boldface font given to the same or similar search terms
 
 ![enter image description here](https://lh3.googleusercontent.com/-eVYfNBaaRmw/WYvVgexMTGI/AAAAAAAACFc/62enoP_6a38nUNAOPv6IFL6C4RxMmduuQCLcBGAs/s0/googleSERP.png "googleSERP.png")
 
 ## Snippets in Elasticsearch
 ----------
-Elasticsearch provides an easy method for accessing the snippets from returned search results.  The Easticsearch method is called **highlighting**. In this section we will construct a short example to demonstrate highlighting from the MAC console using CURL, followed by some sample Javascript code to show you how to access from a JS client.
+Elasticsearch provides an easy method for accessing the snippets from returned search results.  The relevant Easticsearch method is called **highlighting**. In this section we will construct a short example to demonstrate highlighting from the Apple console using CURL, followed by some sample Javascript code to show you how to access from a JS client.
 
-## Snippet Example from the MAC Console using CURL
+## Snippet Example from Console using CURL
 
-### Pre Requisites
-This example assumes you have Elasticsearch 5.x.x installed and running on your MAC. 
+### Pre-Requisites
+This example assumes you have Elasticsearch 5.x.x installed and running on your computer (tested on Apple Mac). 
 
 ### Setup Elasticsearch Index
-We will setup the same index as that used in the Field Retrieval and Boosting example, so if you have already done that example, you can use the index you created there.  If not, use the following steps:
+We will setup the same index as that used in the Field Retrieval and Boosting example, so if you have already done that example, you can use the index you created there.  If not, follow the following steps:
 
-To check Elasticsearch is running, use the following CURL command on the MAC console:
+To check Elasticsearch is running, use the following CURL command in the console:
 
     curl 'http://localhost:9200/?pretty'
 
@@ -82,7 +82,7 @@ Which from the console is:
       }
     }'
 
-You can now check that this has been created correctly by viewing the mappings for index book.
+You can now check that this has been created correctly by viewing the mappings for the index `book`.
 
     curl -XGET 'localhost:9200/book/_mapping/chapter?pretty'
 
@@ -168,7 +168,7 @@ and
 
 
 #### 3. Search with Snippets
-Now we are going to perform the search WITHOUT highlighting so that we can see a standard search response.  In this example we search for chapters which contain the word 'configure' in it.
+Now we are going to perform the search WITHOUT highlighting so that we can see a standard search response.  In this example we search for chapters which contain the word `configure` in it.
 
     curl -XGET 'localhost:9200/book/chapter/_search?pretty' -H 'Content-Type: application/json' -d'
     {
@@ -177,7 +177,7 @@ Now we are going to perform the search WITHOUT highlighting so that we can see a
         }
     }'
 
-Generates the following result:
+This generates the following result:
 
     {
       "took" : 2,
@@ -205,7 +205,7 @@ Generates the following result:
       }
     }
 
-This time we will add in the highlighting. Note the extra 'highlight' request in the XGET body:
+This time we will add in the highlighting. Note the extra `highlight` request in the XGET body:
 
     curl -XGET 'localhost:9200/book/chapter/_search?pretty' -H 'Content-Type: application/json' -d'
     {
@@ -219,7 +219,7 @@ This time we will add in the highlighting. Note the extra 'highlight' request in
         }
     }'
 
-And the response is now:
+And the response now becomes:
 
     {
       "took" : 2,
