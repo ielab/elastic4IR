@@ -13,7 +13,7 @@ Elasticsearch provides an easy method for accessing the snippets from returned s
 
 ## Snippet Example from the MAC Console using CURL
 
-###Pre Requisites
+### Pre Requisites
 This example assumes you have Elasticsearch 5.x.x installed and running on your MAC. 
 
 ### Setup Elasticsearch Index
@@ -40,7 +40,7 @@ You should get something like the following returned:
     }
 
 
-####1. Create the index
+#### 1. Create the index
 We are going to run the following Elasticsearch command:
 
     PUT book
@@ -105,7 +105,7 @@ To which your response should be:
       }
     }
 
-####2. Add some data
+#### 2. Add some data
 We are going to run the following Elasticsearch commands:
 
     PUT /book/chapter/1
@@ -167,7 +167,7 @@ and
     }'
 
 
-####3. Add some data
+#### 3. Search with Snippets
 Now we are going to perform the search WITHOUT highlighting so that we can see a standard search response.  In this example we search for chapters which contain the word 'configure' in it.
 
     curl -XGET 'localhost:9200/book/chapter/_search?pretty' -H 'Content-Type: application/json' -d'
