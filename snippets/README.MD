@@ -105,3 +105,48 @@ To which your response should be:
       }
     }
 
+####2. Add some data
+We are going to run the following Elasticsearch commands:
+
+    PUT /book/chapter/1
+    {
+      "title":"Introduction to Elasticsearch",
+      "summary": "Basic steps from installing to searching documents using Elasticsearch"
+    }
+    
+    PUT /book/chapter/2
+    {
+      "title":"Documents Manipulation",
+      "summary": "Procedures to add, update and delete documents in Elasticsearch"
+    }
+    
+    PUT /book/chapter/3
+    {
+      "title":"Advance searching",
+      "summary": "Configure advance parameters to search documents"
+    }
+
+Using CURL this becomes:
+
+    curl -XPUT 'localhost:9200/book/chapter/1?pretty' -H 'Content-Type: application/json' -d'
+    {
+        "title" : "Introduction to Elasticsearch",
+        "summary" : "Basic steps from installing to searching documents using Elasticsearch"
+    }'
+
+The response should be:
+
+    {
+      "_index" : "book",
+      "_type" : "chapter",
+      "_id" : "1",
+      "_version" : 1,
+      "result" : "created",
+      "_shards" : {
+        "total" : 2,
+        "successful" : 1,
+        "failed" : 0
+      },
+      "created" : true
+    }
+
