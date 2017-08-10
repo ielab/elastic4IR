@@ -107,7 +107,7 @@ This section shows code snippets detailing how to perform common operations used
 
 ### [Field Retrieval & Field Boosting](https://github.com/ielab/elastic4IR/tree/master/field_retrieval)
 
-### Getting Snippet Text for Query Results
+### [Getting Snippet Text for Query Results](https://github.com/ielab/elastic4IR/tree/master/snippets)
 
 
 ## Common Problems and Solutions with Elasticsearch
