@@ -101,7 +101,7 @@ This section shows code snippets detailing how to perform common operations used
 
 ### [Implement a new Retrieval Model (Custom Similarity Plug-in)](https://github.com/ielab/elastic4IR/blob/master/custom_scoring/README.md)
 
-### Using a Document Prior
+### [Using Document Priors via Boosting](https://github.com/ielab/elastic4IR/blob/master/document_prior/README.md)
 
 ### [Boolean Retrieval in Elasticsearch](https://github.com/ielab/elastic4IR/blob/master/boolean_retrieval/Boolean%20Retrieval.ipynb)
 
