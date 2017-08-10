@@ -103,7 +103,7 @@ This section shows code snippets detailing how to perform common operations used
 
 ### Using a Document Prior
 
-### Boolean Retrieval in Elasticsearch
+### [Boolean Retrieval in Elasticsearch](https://github.com/ielab/elastic4IR/blob/master/boolean_retrieval/Boolean%20Retrieval.ipynb)
 
 ### Retrieving Field Text & Field Boosting
 
