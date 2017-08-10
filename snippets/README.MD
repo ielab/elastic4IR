@@ -150,3 +150,110 @@ The response should be:
       "created" : true
     }
 
+Repeat now for the other 2 document entries:
+
+    curl -XPUT 'localhost:9200/book/chapter/2?pretty' -H 'Content-Type: application/json' -d'
+    {
+        "title" : "Documents Manipulation",
+        "summary" : "Procedures to add, update and delete documents in Elasticsearch"
+    }'
+
+and
+
+    curl -XPUT 'localhost:9200/book/chapter/3?pretty' -H 'Content-Type: application/json' -d'
+    {
+        "title" : "Advance searching",
+        "summary" : "Configure advance parameters to search documents"
+    }'
+
+
+####3. Add some data
+Now we are going to perform the search WITHOUT highlighting so that we can see a standard search response.  In this example we search for chapters which contain the word 'configure' in it.
+
+    curl -XGET 'localhost:9200/book/chapter/_search?pretty' -H 'Content-Type: application/json' -d'
+    {
+        "query" : {
+            "match" : { "summary" : "configure" }
+        }
+    }'
+
+Generates the following result:
+
+    {
+      "took" : 2,
+      "timed_out" : false,
+      "_shards" : {
+        "total" : 5,
+        "successful" : 5,
+        "failed" : 0
+      },
+      "hits" : {
+        "total" : 1,
+        "max_score" : 0.26742277,
+        "hits" : [
+          {
+            "_index" : "book",
+            "_type" : "chapter",
+            "_id" : "3",
+            "_score" : 0.26742277,
+            "_source" : {
+              "title" : "Advance searching",
+              "summary" : "Configure advance parameters to search documents"
+            }
+          }
+        ]
+      }
+    }
+
+This time we will add in the highlighting. Note the extra 'highlight' request in the XGET body:
+
+    curl -XGET 'localhost:9200/book/chapter/_search?pretty' -H 'Content-Type: application/json' -d'
+    {
+        "query" : {
+            "match" : { "summary" : "configure" }
+        },
+        "highlight" : {
+            "fields" : {
+                "summary" : {}
+            }
+        }
+    }'
+
+And the response is now:
+
+    {
+      "took" : 2,
+      "timed_out" : false,
+      "_shards" : {
+        "total" : 5,
+        "successful" : 5,
+        "failed" : 0
+      },
+      "hits" : {
+        "total" : 1,
+        "max_score" : 0.26742277,
+        "hits" : [
+          {
+            "_index" : "book",
+            "_type" : "chapter",
+            "_id" : "3",
+            "_score" : 0.26742277,
+            "_source" : {
+              "title" : "Advance searching",
+              "summary" : "Configure advance parameters to search documents"
+            },
+            "highlight" : {
+              "summary" : [
+                "<em>Configure</em> advance parameters to search documents"
+              ]
+            }
+          }
+        ]
+      }
+    }
+
+The **highlight** json object contains the snippet, which has been taken from the 'summary' field, as requested.  The snippet is:
+
+<em>Configure</em> advance parameters to search documents
+
+Note that the matching word in the search, configure, has been highlighted with <\em> notation.
