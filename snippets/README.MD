@@ -17,7 +17,7 @@ Elasticsearch provides an easy method for accessing the snippets from returned s
 This example assumes you have Elasticsearch 5.x.x installed and running on your MAC. 
 
 ### Setup Elasticsearch Index
-We will setup the same index as that used in the Field Retrieval and Boosting example, so if you have already done that example, you can use the index you created there.  If not, follow the following steps:
+We will setup the same index as that used in the Field Retrieval and Boosting example, so if you have already done that example, you can use the index you created there.  If not, use the following steps:
 
 To check Elasticsearch is running, use the following CURL command on the MAC console:
 
