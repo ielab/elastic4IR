@@ -1,17 +1,15 @@
-# Using Document Prior in Elasticsearch 5.1.1
-This repository explain how to consider document priors (e.g. Page rank, spam rank, etc) as a boosting factor in Elasticsearch.
+# Using Document Priors via Boosting
+This tutorial explains how to use document priors (e.g. Page rank, spam rank, etc) as a boosting factor in Elasticsearch. Note that this is not how we usually would use document priors in Information Retrieval (e.g. as a prior probability in a language model). At this stage, it is yet unclear how the performance of document boosting and the proper use of such priors differ.
+For boosting, we shall encode priors as a new field in our documents; an alternative approach (not explored) may be to add  priors as payloads.
 
-## Pre-requisite
+## Pre-requisites
 * Elasticsearch 5.x.x
 * Kibana (optional)
 
 
-
-
-
 ## Preparing a Sample Elasticsearch Index
-First, lets create an Elasticsearch index to work with. We want to create an index name "book" and a type "chapter" within the index.
-Each document in "chapter" type will have two text fields (title and summary) and pageRank field.
+First, lets create an Elasticsearch index to work with. We shall create an index named "book" with a type "chapter" within the index.
+Each document in the "chapter" type will have two text fields (`title` and `summary`) and a `pageRank` field (i.e. the prior is encoded in a field).
 The pageRank will be used as example of document prior.
 
 Do the following in Kibana:
@@ -42,7 +40,7 @@ PUT book
 }
 ```
 
-To verify that new index structure is as expected:
+To verify that new index structure is as expected, type:
 
 ``` Elasticsearch via Kibana
 GET /book/_mapping/chapter
@@ -95,8 +93,9 @@ PUT /book/chapter/3
 }
 ```
 
-Now that we have three documents indexed in Elasticsearch, we can use Elasticsearch to search for the documents.
-First, lets say we want to simply search for book chapter that contain term "Searching"
+Now that we have three documents indexed in Elasticsearch, we can use Elasticsearch to search for documents.
+First, let's assume we are interested in searching for book chapters that contain the term "Searching"
+
 ``` Elasticsearch via Kibana
 GET /book/chapter/_search
 {
@@ -109,7 +108,7 @@ GET /book/chapter/_search
 }
 ```
 
-Results:
+Expected results:
 ```JSON
 {
   "took": 3,
@@ -150,9 +149,10 @@ Results:
 }
 ```
 
-Note that document id 1 is ranked on top.
+Note that document id 1 is ranked on the top of the result list.
 
-Next, let us consider the pagerank to boost document with higher pagerank score.
+Next, let us consider the pageRank prior to boost documents with higher pageRank scores.
+
 ``` Elasticsearch via Kibana
 GET /book/chapter/_search
 {
@@ -177,7 +177,7 @@ GET /book/chapter/_search
 }
 ```
 
-results:
+Expected results:
 ``` JSON
 {
   "took": 2,
@@ -217,6 +217,6 @@ results:
   }
 }
 ```
-
-Note that the score in the last results is equal to score from the previous result multiplied by the pagerank value.
-Since document id: 3 has much higher pagerank value, document id 3 is boosted way higher than document id 1 and is now on top.
+There are two interesting things to note from this second output:
+ * the scores of the documents are similar to those from the first set of experiments, but multiplied by the pagerank value.
+ * since the document with id 3 has a much higher pagerank value compared to other documents, the score for document id 3 is boosted way higher than the other documents and it is ranked at the top of the result list.
