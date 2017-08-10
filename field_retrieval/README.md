@@ -1,16 +1,16 @@
-# Retrieving Field Text & Field Boosting
-Using Elasticsearch and the Python api
+# Field Retrieval & Field Boosting
+This tutorial shows how to perform field retrieval and field boosting in Elasticsearch using the Python-based API.
 
-## Pre-requisite
+## Pre-requisites
 * Elasticsearch 5.x.x
 * Kibana (optional)
 * Python 3
-* Elasticsearch python api. can be found from [here](https://elasticsearch-py.readthedocs.io/en/master/)
+* Elasticsearch Python API. This be found [here](https://elasticsearch-py.readthedocs.io/en/master/)
 
 
 ## Preparing a Sample Elasticsearch Index
-First, lets create an Elasticsearch index to play with. We want to create an index name "book" and a type "chapter" within the index.
-Each document in "chapter" type will have two text fields: title and summary.
+First, let's create an Elasticsearch index to play with. We want to create an index named "book" and a type "chapter" within the index.
+Each document of "chapter" type will have two text fields: `title` and `summary`.
 
 Do the following in Kibana:
 
@@ -37,13 +37,13 @@ PUT book
 }
 ```
 
-To verify that new index structure is as expected:
+To verify that the new index structure is as expected:
 
 ``` Elasticsearch via Kibana
 GET /book/_mapping/chapter
 ```
 
-Expected results:
+Expected result:
 ``` Output
 {
   "book": {
@@ -84,10 +84,10 @@ PUT /book/chapter/3
 }
 ```
 
-Now we have three documents indexed in Elasticsearch. Next, we will search for these documents via Python
+Now we have three documents indexed in Elasticsearch. Next, we will search for these documents using the Python API
 
 ## Basic Search
-Lets move from Kibana to python. First, we need to import the necessary api
+Let's move from Kibana to Python. First, we need to import the necessary API
 ```python
 from elasticsearch import Elasticsearch
 ```
@@ -97,7 +97,7 @@ then, establish a connection to Elasticsearch
 es = Elasticsearch(urls='localhost', port=9200)
 ```
 
-Next, we need to build the query string:
+Next, we need to build a query string:
 ```python
 query_string = {
     'query': {
@@ -109,15 +109,15 @@ query_string = {
 }
 ```
 
-In the above script, parameter 'query' specifies the terms to search and parameter 'fields' specifies fields to search.
-In this example, we would like to search for term 'Searching' within fields 'title' and 'summary':
+In the above script, the parameter `query` specifies the terms to search and the parameter `fields` specifies the fields to search within.
+In this example, we would like to search for the term `Searching` within the fields `title` and `summary`:
 
-Lastly, we submit the query string to es:
+Lastly, we submit the query string to Elasticsearch:
 ```python
 res = es.search(index='book', doc_type='chapter', body=query_string)
 ```
 
-The res variable should contain the following results:
+The `res` variable should contain the following results:
 ```JSON
 {
     "hits": {
@@ -156,15 +156,15 @@ The res variable should contain the following results:
 }
 ```
 
-The above results shows that there are two documents with title and summary fields match query term "searching".
+The above results shows that there are two documents with `title` and `summary` fields that match the query term "Searching".
 In this example, we consider both title and summary fields as equal.
 
-What if one field is more important than other?
-Next, we will apply boosting factor to specify each field importance.
+What if we believe that a match in one field shoudl be treated as being more important than a match in another field?
+Next, we will apply a boosting factor to specify each field importance.
 
-## Boosting field
-For practice purpose, let's say that the title field is more important than the summary field.
-Hence, query match to text in the title field should weighted double than query match to text in the summary field.
+## Boosting fields
+For practical purposes, let's say that the title field is more important than the summary field. (You could have a look at our research that has explored whether this is true across a number of data types and search tasks: [Boosting Titles does not Generally Improve Retrieval Effectiveness](http://dl.acm.org/citation.cfm?id=3015028)).
+Hence, a query match to text in the title field should weighted double than query match to text in the summary field.
 
 To specify field weight / boosting level, we need to add a caret symbol and field weight following each field name in the query string
 ```python
