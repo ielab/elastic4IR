@@ -70,6 +70,37 @@ Note the calling parameters:
 3. The number of search items (hits) required and from which search result item do you want the results to start, i.e. from 10 onwards
 4. The search body, which contains the specified search and highlight
 
-The result is returned to the searchWithQuery() function
 
+#### Handling the Elasticsearch search results
+The search results are returned to the searchWithQuery() function in the following code:
+
+    var log = [];
+                var hits =[];
+                var hitSources = [];
+                var allHits;
+                var hitcount = 0;
+                
+     
+                angular.forEach(result.data, function(value, key) {
+                  this.push(key + ': ' + value);
+                  if (key=="hits"){
+                    allHits = value;
+    
+                    if (pageNumber==1) // get the total hits for the first page, after that we get ranges
+                      searchData.totalHits = allHits.total;
+                    console.log('total hits are:' + searchData.totalHits);
+    
+                    angular.forEach(allHits,function(value2,key2){
+                      if (key2=="hits"){
+                        angular.forEach(value2,function(hit){
+                            hitcount++;
+                            hits.push(hit);
+                            //this is where the type fields are selected from ES
+                            //USE BODY-> hitSources.push(getHitData(hit._id,hit._source["journal-title"],hit._source["pub-date"],hit._source["article-title"],hit.highlight,hit._source["HTML_BODY"],hitcount,hit._source["abstract"]));
+                            hitSources.push(getHitData(hit._id,hit._source["journal-title"],hit._source["pub-date"],hit._source["article-title"],hit.highlight,hit._source["HTML_ALL"],hitcount,hit._source["abstract"]));
+                        });
+                      }
+    
+                    })
+                  }
 
