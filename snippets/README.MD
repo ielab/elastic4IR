@@ -9,13 +9,99 @@ A snippet is the short summary extracted from the source file which usually emph
 
 ## Snippets in Elasticsearch
 ----------
-Elasticsearch provides an easy method for accessing the snippets from returned search results.  The Easticsearch method is called **highlighting**. In this section we will construct a short example to demonstrate highlighting from the MAC console, followed by some sample Javascript code to show you how to access from a JS client.
+Elasticsearch provides an easy method for accessing the snippets from returned search results.  The Easticsearch method is called **highlighting**. In this section we will construct a short example to demonstrate highlighting from the MAC console using CURL, followed by some sample Javascript code to show you how to access from a JS client.
 
-## Snippet Example from the MAC Console
+## Snippet Example from the MAC Console using CURL
 
 ###Pre Requisites
 This example assumes you have Elasticsearch 5.x.x installed and running on your MAC. 
 
-### Setup Steps
+### Setup Elasticsearch Index
+We will setup the same index as that used in the Field Retrieval and Boosting example, so if you have already done that example, you can use the index you created there.  If not, follow the following steps:
 
+To check Elasticsearch is running, use the following CURL command on the MAC console:
+
+    curl 'http://localhost:9200/?pretty'
+
+You should get something like the following returned:
+
+    {
+      "name" : "KVB9haP",
+      "cluster_name" : "elasticsearch",
+      "cluster_uuid" : "wqbmP7vdSfCbatSDF-siug",
+      "version" : {
+        "number" : "5.3.2",
+        "build_hash" : "3068195",
+        "build_date" : "2017-04-24T16:15:59.481Z",
+        "build_snapshot" : false,
+        "lucene_version" : "6.4.2"
+      },
+      "tagline" : "You Know, for Search"
+    }
+
+
+####1. Create the index
+We are going to run the following Elasticsearch command:
+
+    PUT book
+    {
+      "mappings":
+      {
+        "chapter":
+        {
+          "properties":
+          {
+            "title":
+            {
+              "type": "text"
+            },
+            "summary":
+            {
+              "type": "text"
+            }
+          }
+        }
+      }
+    }
+
+Which from the console is:
+
+    curl -XPUT 'localhost:9200/book?pretty' -H 'Content-Type: application/json' -d'
+    {
+      "mappings": {
+        "chapter": {
+          "properties": {
+            "title": {
+              "type": "text"
+            },
+            "summary": {
+              "type": "text"
+            }
+          }
+        }
+      }
+    }'
+
+You can now check that this has been created correctly by viewing the mappings for index book.
+
+    curl -XGET 'localhost:9200/book/_mapping/chapter?pretty'
+
+To which your response should be:
+
+    {
+      "book" : {
+        "mappings" : {
+          "chapter" : {
+            "properties" : {
+              "summary" : {
+                "type" : "text"
+              },
+              "title" : {
+                "type" : "text"
+              }
+            }
+          }
+        }
+      }
+    }
 
