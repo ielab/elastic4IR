@@ -104,3 +104,38 @@ The search results are returned to the searchWithQuery() function in the followi
                     })
                   }
 
+It's important to note that the final hit results, i.e. the search results, are found within 3 levels of nesting within the return object.  At that point, each field of the document can be extracted, in our case this was the journal title, date, article title, abstract and entire source document.
+
+For each hit (search result), the snippet data can also be identified.  This is performed firstly in the getHitData(..) function and then the getHighlightData(..) function.
+
+     function getHitData(id,jTitle,jPubDate,aTitle,aSnippet,htmlDoc,snippetNum, abstractText){
+           var aHit = {
+              articleTitle:aTitle,
+              journalTitle:jTitle,
+              abstract: abstractText,
+              pubDate: jPubDate,
+              docId:id,
+              snippet:getHighlightData(aSnippet.abstract),
+              snippetNumber:snippetNum, //the order in which the snippet was retrieved
+              snippetID:null,  //to be set later when we make a snippet record
+              htmlDocument: htmlDoc
+            }
+            
+            //console.log('TEMP: snippetNumber in HitData is:' + aHit.snippetNumber);
+            console.log('TEMP: snippet data is' + angular.toJson(aSnippet));
+            return aHit;
+      };
+
+
+     function getHighlightData(anAbstractSnippet){
+          var snippetText = '';
+          angular.forEach(anAbstractSnippet,function(aSubSnippet){
+            snippetText = snippetText + aSubSnippet + "...";
+          });
+          snippetText = snippetText.split("<em>").join("<kbd>");
+          snippetText = snippetText.split("</em>").join("</kbd>");
+          return snippetText;
+      }
+
+
+The highlight (snippet) data is called *hit.highlight*. In this service, the snippet text is highlighted using kbd notation to replace the em notation, so that the matching terms are very visible.  This step is performed in the getHightlightData(..) function.
