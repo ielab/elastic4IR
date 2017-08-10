@@ -1,4 +1,4 @@
-# Implement Custom Similarity Plug In to Elasticsearch
+# Implement a new Retrieval Model (Custom Similarity Plug-in)
 Here we describe how to implement a custom similarity function (plugin) for Elasticsearch (based on version 5.1.1).
 As a case study, we shall implement KL-Divergence similarity between language models.
 
