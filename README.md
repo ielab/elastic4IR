@@ -37,7 +37,7 @@ This is as simple as downloading ES and running it from the bin. Note, Java is r
 
 Docker is a popular container technology (like a lightweight virtual machine). 
 
-For this you need to have Docker and Docker-compose installed. For a out of the box ES and Kibana installation, download the docker-compose file [docker-compose.yml](https://github.com/codingexplained/complete-guide-to-elasticsearch/blob/master/docker-compose.yml). Then open a terminal in the location where you downloaded and type `docker-compose up`. This will start the dockers (you need to have the Docker engine running). Now an instance of ES is running at [http://localhost:9200](http://localhost:9200) and a version of Kibana is runnign at [http://localhost:5601](http://localhost:5601).
+For this you need to have Docker installed. For an out of the box Elasticsearch, Kibana and Logtash installation, you can use the docker image at [https://hub.docker.com/r/hscells/elastic4ir/](https://hub.docker.com/r/hscells/elastic4ir/). You can simply open a terminal and type `docker run -p 9200:9200 -e "http.host=0.0.0.0" -e "transport.host=127.0.0.1" -e "xpack.security.enabled=false" hscells/elastic4ir`. This will start the dockers (you need to have the Docker engine running). Now an instance of ES is running at [http://localhost:9200](http://localhost:9200) and a version of Kibana is runnign at [http://localhost:5601](http://localhost:5601).
 
 To Check the status of Kibana, we can just go to that address. To check ES, we can interrogate it from the terminal with an HTTP request:
 
@@ -45,11 +45,10 @@ To Check the status of Kibana, we can just go to that address. To check ES, we c
 
 will return the status of the ES cluster.
 
-Note that this particular docker image creates a folder `data` in the local directory - this will persist some of the ES and Kibana data, so to allow to turn off and then on again the docker without loss of data.
+Note that this particular docker image creates a folder `data` in the local directory - this will persist some of the ES and Kibana data, so to allow to turn off and then on again the docker without loss of data. (*not in the current Docker image*)
 
-The processes running in Docker can be terminated with the usual `CTRL+C`. `docker-compose down` issued then on the terminal releases all the resources used by Docket. 
+The processes running in Docker can be terminated with the usual `CTRL+C`. 
 
-ES configurations can be changed by editing the `docker-compose.yml` file.
 
 ### Configuring Elasticsearch
 
