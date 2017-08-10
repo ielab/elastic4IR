@@ -99,7 +99,7 @@ This section shows code snippets detailing how to perform common operations used
 
 ### Accessing a Term Vector
 
-### Implementing a Costumised Scoring Function
+### [Implement a new Retrieval Model (Custom Similarity Plug-in)](https://github.com/ielab/elastic4IR/blob/master/custom_scoring/README.md)
 
 ### Using a Document Prior
 
