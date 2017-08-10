@@ -97,13 +97,13 @@ This section shows code snippets detailing how to perform common operations used
 
 ### Creating a TREC run with Elasticsearch
 
-### Accessing a Term Vector
+### [Accessing a Term Vector](https://github.com/ielab/elastic4IR/blob/master/term_vector/Accessing%20a%20Term%20Vector.ipynb)
 
 ### [Implement a new Retrieval Model (Custom Similarity Plug-in)](https://github.com/ielab/elastic4IR/blob/master/custom_scoring)
 
-### [Using Document Priors via Boosting](https://github.com/ielab/elastic4IR/blob/master/document_prior)
-
 ### [Boolean Retrieval in Elasticsearch](https://github.com/ielab/elastic4IR/blob/master/boolean_retrieval/Boolean%20Retrieval.ipynb)
+
+### [Using Document Priors via Boosting](https://github.com/ielab/elastic4IR/blob/master/document_prior)
 
 ### [Field Retrieval & Field Boosting](https://github.com/ielab/elastic4IR/tree/master/field_retrieval)
 
