@@ -99,13 +99,13 @@ This section shows code snippets detailing how to perform common operations used
 
 ### Accessing a Term Vector
 
-### [Implement a new Retrieval Model (Custom Similarity Plug-in)](https://github.com/ielab/elastic4IR/blob/master/custom_scoring/README.md)
+### [Implement a new Retrieval Model (Custom Similarity Plug-in)](https://github.com/ielab/elastic4IR/blob/master/custom_scoring)
 
-### [Using Document Priors via Boosting](https://github.com/ielab/elastic4IR/blob/master/document_prior/README.md)
+### [Using Document Priors via Boosting](https://github.com/ielab/elastic4IR/blob/master/document_prior)
 
 ### [Boolean Retrieval in Elasticsearch](https://github.com/ielab/elastic4IR/blob/master/boolean_retrieval/Boolean%20Retrieval.ipynb)
 
-### Retrieving Field Text & Field Boosting
+### [Field Retrieval & Field Boosting](https://github.com/ielab/elastic4IR/tree/master/field_retrieval)
 
 ### Getting Snippet Text for Query Results
 
