@@ -178,7 +178,7 @@ query_string = {
 }
 ```
 
-The above query string will produce the following result:
+The above query string will produce the following results:
 ```JSON
 {
     "_shards": {
@@ -216,7 +216,5 @@ The above query string will produce the following result:
     }
 }
 ```
-
-In the last result, document id: 3 is placed at the first place as it contains terms "searching" in the title field.
 Document id: 3 only contains one mention of term "searching" in its title field.
-Since we boosted the the title field by two the relevance score of document id: 3 to term "searching" is doubled.
+In the last result, document id: 3 is placed at the first place as it contains the term "searching" in the title field.
