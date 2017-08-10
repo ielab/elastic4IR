@@ -110,5 +110,5 @@ This section shows code snippets detailing how to perform common operations used
 ### [Getting Snippet Text for Query Results](https://github.com/ielab/elastic4IR/tree/master/snippets)
 
 
-## Common Problems and Solutions with Elasticsearch
+## [Common Problems and Solutions with Elasticsearch](https://github.com/ielab/elastic4IR/tree/master/faq)
 
