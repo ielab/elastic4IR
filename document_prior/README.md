@@ -2,6 +2,17 @@
 This tutorial explains how to use document priors (e.g. Page rank, spam rank, etc) as a boosting factor in Elasticsearch. Note that this is not how we usually would use document priors in Information Retrieval (e.g. as a prior probability in a language model). At this stage, it is yet unclear how the performance of document boosting and the proper use of such priors differ.
 For boosting, we shall encode priors as a new field in our documents; an alternative approach (not explored) may be to add  priors as payloads.
 
+Page rank score will be considered using the following formula
+FinalScore = BM25score + PageRankWeight
+
+Where PageRankWeight is a function to determine weighting of the page rank score.
+This formula is based on paper titled "Relevance Weighting for Query Independent Evidence"
+by Nick Craswell, Stephen Robertson, Hugo Zaragoza and Michael Taylor
+published in SIGIR'05.
+
+In this script, we assume that the selected PageRankWeight value for each document has been precomputed and stored in the "pagerank" field.
+
+
 ## Pre-requisites
 * Elasticsearch 5.x.x
 * Kibana (optional)
@@ -160,7 +171,7 @@ GET /book/chapter/_search
     "function_score": {
       "query": {
         "query_string": {
-            "query": "Searching",
+            "query": "searching",
             "fields": ["title","summary"]
         }
       },
@@ -171,7 +182,7 @@ GET /book/chapter/_search
           }
         }
       ],
-      "score_mode": "multiply"
+      "boost_mode": "sum"
     }
   }
 }
@@ -180,7 +191,7 @@ GET /book/chapter/_search
 Expected results:
 ``` JSON
 {
-  "took": 2,
+  "took": 3,
   "timed_out": false,
   "_shards": {
     "total": 5,
@@ -189,13 +200,13 @@ Expected results:
   },
   "hits": {
     "total": 2,
-    "max_score": 0.025811607,
+    "max_score": 0.35811606,
     "hits": [
       {
         "_index": "book",
         "_type": "chapter",
         "_id": "3",
-        "_score": 0.025811607,
+        "_score": 0.35811606,
         "_source": {
           "title": "Advance searching",
           "summary": "Configure advance parameters to search documents",
@@ -206,7 +217,7 @@ Expected results:
         "_index": "book",
         "_type": "chapter",
         "_id": "1",
-        "_score": 0.00008169974,
+        "_score": 0.27263245,
         "_source": {
           "title": "Introduction to Elasticsearch",
           "summary": "Basic steps from installing to searching documents using Elasticsearch",
@@ -217,6 +228,6 @@ Expected results:
   }
 }
 ```
-There are two interesting things to note from this second output:
- * the scores of the documents are similar to those from the first set of experiments, but multiplied by the pagerank value.
+There are two things to note from this second output:
+ * the scores of the documents are the sum product of score from the initial query and the document's pagerank value.
  * since the document with id 3 has a much higher pagerank value compared to other documents, the score for document id 3 is boosted way higher than the other documents and it is ranked at the top of the result list.
