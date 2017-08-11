@@ -49,6 +49,7 @@ Note that this particular docker image creates a folder `data` in the local dire
 
 The processes running in Docker can be terminated with the usual `CTRL+C`. 
 
+(11/08/2017: note, the docker image at the moment does not contain Kibana and Logtash - we will update this soon. For now you need Kibana and Logtash on your machine, if you want to use those functionalities)
 
 ### Configuring Elasticsearch
 
