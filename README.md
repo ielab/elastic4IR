@@ -101,7 +101,7 @@ The yellow health for an index means that some replicas have not been allocated.
 
 This section shows code snippets detailing how to perform common operations used when implementing IR experiments or new retrieval models.
 
-### Creating a TREC run with Elasticsearch(https://github.com/ielab/elastic4IR/tree/master/trec_run)
+### [Creating a TREC run with Elasticsearch](https://github.com/ielab/elastic4IR/blob/master/trec_run/Elasticsearch%20TREC%20Run.ipynb)
 
 ### [Accessing a Term Vector](https://github.com/ielab/elastic4IR/blob/master/term_vector/Accessing%20a%20Term%20Vector.ipynb)
 
